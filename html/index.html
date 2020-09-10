@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Red vs Blue</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/auth.js') }}"/>
+		<script type="text/javascript">
+			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+	</head>
+<body>
+
+	<div>
+		<ul style="list-style: none; float: left;">
+			<li><a href="{{ url_for('.home_page') }}">Home</a></li>
+			<div id="sign">
+				<li><a href="{{ url_for('.signup_page') }}">Sign Up</a></li>
+				<li><a href="{{ url_for('.login_page') }}">Login</a></li>
+			</div>
+			<div id="logoff" style="display: none;">
+				<li><a href="#" id="logout">Log Off</a></li>
+			</div>
+		</ul>
+	</div>
+
+	<div style="width: 500px; margin: auto;">
+	
+		Welcome to Red vs Blue
+		
+	</div>
+	
+</body>
+</html>
