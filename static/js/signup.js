@@ -14,21 +14,26 @@ $(document).ready(function() {
 	$('#signupSubmit').on('click', function(e) {
 		e.preventDefault();
 		
-		var name = $('#name').val();
+		var first = $('#first').val();
+		var last = $('#last').val();
 		var email = $('#email').val();
 		var pwd = $('#password').val();
+		var pwd_2 = $('#password_2').val();
 		
 		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
 		
 		if(email != "" && pwd != "" ) {
-			if(!regex.test(email)) {
-				$('#msg').html('<span style="color: red;">Invalid email address</span>');
+			if( pwd != pwd_2) {
+				$('#msg').html('<span style="color: red;">Your second Password does not match with the first.</span>');
+			}
+			else if(!regex.test(email)) {
+				$('#msg').html('<span style="color: red;">Invalid email address typed in</span>');
 			} else {
 				$.ajax({
 					method: "POST",
 					url: '/signup',
 					contentType: 'application/json;charset=UTF-8',
-					data: JSON.stringify({'name' : name, 'username': email, 'password': pwd}),
+					data: JSON.stringify({'first': first, 'last': last, 'username': email, 'password': pwd, 'password_2': pwd_2}),
 					dataType: "json",
 					success: function(data) {
 						localStorage.setItem('loggedin', 1);

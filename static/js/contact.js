@@ -10,36 +10,32 @@ $(document).ready(function() {
 		$('#sign').show();
 		$('#logoff').hide();
 	}
-	
-	$('#loginSubmit').on('click', function(e) {
-		e.preventDefault();
 
+	$('#contactSubmit').on('click', function(e) {
+		e.preventDefault();
+		
+		var name = $('#name').val();
 		var email = $('#email').val();
-		var pwd = $('#password').val();
+		var message = $('#message').val();
 		
 		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
 		
-		if(email != "" && pwd != "" ) {
+		if(email != "" && name != "" && message != "" ) {
 			if(!regex.test(email)) {
-				$('#msg').html('<span style="color: red;">Invalid email address</span>');
+				$('#msg').html('<span style="color: red;">Invalid email address typed in</span>');
 			} else {
 				$.ajax({
 					method: "POST",
-					url: '/login',
+					url: '/contact',
 					contentType: 'application/json;charset=UTF-8',
-					data: JSON.stringify({'username': email, 'password': pwd}),
+					data: JSON.stringify({'name': name, 'email': email, 'message': message}),
 					dataType: "json",
 					success: function(data) {
-						localStorage.setItem('loggedin', 1);
-						
-						$('#sign').hide();
-						$('#loginform').hide();
-						$('#logoff').show();
-						$('#msg').html('<span style="color: green;">You are logged in</span>');
+						$('#msg').html('<span style="color: green;">Successfully sent an email</span>');
 					},
 					statusCode: {
 						400: function() {
-							$('#msg').html('<span style="color: red;">Bad request - invalid credentials</span>');
+							$('#msg').html('<span style="color: red;">Failed sending email"</span>');
 						}
 					},
 					error: function(err) {
@@ -48,7 +44,7 @@ $(document).ready(function() {
 				});
 			}
 		} else {
-			$('#msg').html('<span style="color: red;">Invalid username and password</span>');
+			$('#msg').html('<span style="color: red;">Box is empty</span>');
 		}
 	});
 	
