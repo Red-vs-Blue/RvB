@@ -1,52 +1,23 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Sign up</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='js/signup.js') }}"/>
-		<script type="text/javascript">
-			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-		</script>
-	</head>
-<body>
+{% extends '/base.html' %}
+{% block script %}
+	<script type="text/javascript" src="{{ url_for('static', filename='../static/js/signup.js') }}"/>
+{% endblock %}
 
-	<div>
-		<ul style="list-style: none; float: left;">
-			<li><a href="{{ url_for('.home_page') }}">Home</a></li>
-			<div id="sign">
-				<li><a href="{{ url_for('.signup_page') }}">Sign Up</a></li>
-				<li><a href="{{ url_for('.login_page') }}">Login</a></li>
-			</div>
-			<div id="logoff" style="display: none;">
-				<li><a href="#" id="logout">Log Off</a></li>
-			</div>
-		</ul>
-	</div>
+{% block head %}
+	<title>Sign up</title>	
+{% endblock %}
 
-	<div style="width: 500px; margin: auto;">
-	
-		<div id="msg"></div>
-		<div style="clear: both;"></div>
-		<div id="signupform">
-			<h2>Sign up</h2>
-			<dl>
-				<p>
-					<input id="name" value="" type="text" placeholder="Fullname" required>
-				</p>
-				<p>
-					<input id="email" value="" type="text" placeholder="Email" required>
-				</p>
-				<p>
-					<input id="password" value="" type="password" placeholder="Password" autocomplete="off" required>
-				</p>
-			</dl>
-			<p>
-				<input type="button" id="signupSubmit" value="Submit">
-			</p>
-		</div>
-		
-	</div>
-	
-</body>
-</html>
+{% block body %}
+	<div id="msg"></div>
+    <div class="login-dark" id="signupform">
+        <form method="post" style="text-align: center;">
+            <h2 class="sr-only">Sign Up Form</h2><strong class="text-center" style="text-align: center;">Create a new User</strong>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+			<div class="form-signup"><input class="form-control" id="first" type="text" name="firstname" placeholder="Firstname"></div>
+			<div class="form-signup"><input class="form-control" id="last" type="text" name="lastname" placeholder="Lastname"></div>
+            <div class="form-signup"><input class="form-control" id="email" type="email" name="email" placeholder="Email"></div>
+            <div class="form-signup"><input class="form-control" id="password" type="password" name="password" placeholder="Password"></div>
+			<div class="form-signup"><input class="form-control" id="password_2" type="password" name="password" placeholder="Confirm Password"></div>
+            <div class="form-signup"><button class="btn btn-primary btn-block" id="signupSubmit" type="submit">Sign up</button></div></form>
+    </div>
+{% endblock %}
