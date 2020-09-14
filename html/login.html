@@ -1,49 +1,20 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Login</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="{{ url_for('static', filename='js/auth.js') }}"/>
-		<script type="text/javascript">
-			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-		</script>
-	</head>
-<body>
+{% extends '/base.html' %}
+{% block script %}
+	<script type="text/javascript" src="{{ url_for('static', filename='../static/js/auth.js') }}"/>
+{% endblock %}
 
-	<div>
-		<ul style="list-style: none; float: left;">
-			<li><a href="{{ url_for('.home_page') }}">Home</a></li>
-			<div id="sign">
-				<li><a href="{{ url_for('.signup_page') }}">Sign Up</a></li>
-				<li><a href="{{ url_for('.login_page') }}">Login</a></li>
-			</div>
-			<div id="logoff" style="display: none;">
-				<li><a href="#" id="logout">Log Off</a></li>
-			</div>
-		</ul>
-	</div>
+{% block head %}
+	<title>Login</title>
+{% endblock %}
 
-	<div style="width: 500px; margin: auto;">
-	
-		<div id="msg"></div>
-		<div style="clear: both;"></div>
-		<div id="loginform">
-			<h2>Login</h2>
-			<dl>
-				<p>
-					<input id="email" value="" type="text" placeholder="Email" required>
-				</p>
-				<p>
-					<input id="password" value="" type="password" placeholder="Password" autocomplete="off" required>
-				</p>
-			</dl>
-			<p>
-				<input type="button" id="loginSubmit" value="Submit">
-			</p>
-		</div>
-		
-	</div>
-	
-</body>
-</html>
+{% block body %}
+	<div id="msg"></div>
+    <div class="login-dark" id="loginform">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" id="email" type="email" name="email" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" id="password" type="password" name="password" placeholder="Password"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" id="loginSubmit" type="submit">Log In</button></div><a class="forgot" href="#">Forgot your email or password?</a></form>
+    </div>
+{% endblock %}
