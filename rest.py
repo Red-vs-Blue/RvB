@@ -31,7 +31,6 @@ def logout():
 @app.route('/signup', methods=['POST'])
 def signup():
 	_json = request.json
-	print(_json)
     
 	_firstname = _json['first']
 	_lastname = _json['last']
