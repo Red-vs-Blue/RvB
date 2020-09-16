@@ -2,10 +2,10 @@ import mysql.connector
 
 # Change the credentials accordingly
 mydb = mysql.connector.connect(
-  host="aa500othg28omz.cpunh8hjcwbg.us-east-1.rds.amazonaws.com",
+  host="",
   user="root",
-  password="Bernie2020",
-  database="ebdb"
+  password="",
+  database=""
 )
 
 mycursor = mydb.cursor()
