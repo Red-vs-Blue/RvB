@@ -1,10 +1,10 @@
 import dao
-from app import app
+from app import application
 from flask import jsonify, request, session
 from mail_config import mail
 from flask_mail import Mail, Message
 		
-@app.route('/login', methods=['POST'])
+@application.route('/login', methods=['POST'])
 def login():
 	_json = request.json
 
@@ -22,13 +22,13 @@ def login():
 	resp.status_code = 400
 	return resp
 
-@app.route('/logout')
+@application.route('/logout')
 def logout():
 	if 'username' in session:
 		session.pop('username', None)
 	return jsonify({'message' : 'You successfully logged out'})
     
-@app.route('/signup', methods=['POST'])
+@application.route('/signup', methods=['POST'])
 def signup():
 	_json = request.json
     
@@ -49,7 +49,7 @@ def signup():
 	resp.status_code = 400
 	return resp
     
-@app.route('/contact', methods=['POST'])
+@application.route('/contact', methods=['POST'])
 def contact():
 	_json = request.json
 

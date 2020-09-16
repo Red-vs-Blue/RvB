@@ -1,11 +1,12 @@
-from app import app
+from app import application
 from flaskext.mysql import MySQL
 
 mysql = MySQL()
  
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'root'              # Your MySQL Database username
-app.config['MYSQL_DATABASE_PASSWORD'] = ''              # Be sure to add your MySQL server's password here
-app.config['MYSQL_DATABASE_DB'] = 'mydatabase'          # The name of your database
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'         # Where your server is running
-mysql.init_app(app)
+application.config['MYSQL_DATABASE_USER'] = 'root'              # Your MySQL Database username
+application.config['MYSQL_DATABASE_PASSWORD'] = ''              # Be sure to add your MySQL server's password here
+application.config['MYSQL_DATABASE_DB'] = ''          # The name of your database
+application.config['MYSQL_DATABASE_HOST'] = ''         # Where your server is running
+
+mysql.init_app(application)
