@@ -19,7 +19,7 @@ You need to have Python working on your system. We recommend using the latest ve
 - To run the website type in the following command into the terminal:
 	- python application.py
 - The terminal should output a localhost address such as:
-	- http://127.0.0.1:5000/
+	- http://127.0.0.1:8000/
 - Go onto that localhost on your web browser. Now you should be able to view and interact with the website.
 
 ### Through the "requirement.txt"
@@ -32,5 +32,5 @@ You need to have Python working on your system. We recommend using the latest ve
 - Once this is done you can run:
 	- python application.py
 - The terminal should output a localhost address such as:
-	- http://127.0.0.1:5000/
+	- http://127.0.0.1:8000/
 - Go onto that localhost on your web browser. Now you should be able to view and interact with the website.
