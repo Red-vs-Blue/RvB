@@ -17,7 +17,7 @@ You need to have Python working on your system. We recommend using the latest ve
 		- venv/Scripts/activate
 - Once you have the virtual environment running, you don't need to be concerned about installing any other libraries as all the required libraries are already installed on the virtual environment.
 - To run the website type in the following command into the terminal:
-	- python main.py
+	- python application.py
 - The terminal should output a localhost address such as:
 	- http://127.0.0.1:5000/
 - Go onto that localhost on your web browser. Now you should be able to view and interact with the website.
@@ -30,7 +30,7 @@ You need to have Python working on your system. We recommend using the latest ve
 - If this doesn't work due to pip not being included in your PATH then type in:
 	- python -m pip install -r requirements.txt
 - Once this is done you can run:
-	- python main.py
+	- python application.py
 - The terminal should output a localhost address such as:
 	- http://127.0.0.1:5000/
 - Go onto that localhost on your web browser. Now you should be able to view and interact with the website.
