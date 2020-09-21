@@ -37,7 +37,7 @@ $(document).ready(function() {
 					dataType: "json",
 					success: function(data) {
 						localStorage.setItem('loggedin', 1);
-						
+						$('#user_profile').html(email);
 						$('#sign').hide();
 						$('#loginform').hide();
 						$('#signupform').hide();

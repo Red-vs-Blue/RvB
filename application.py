@@ -33,6 +33,14 @@ def politicians_page():
 @application.route('/signup/page')
 def signup_page():
 	return render_template('signup.html')
+
+@application.route('/faq/page')
+def faq_page():
+	return render_template('faq.html')
+
+@application.route('/user_profile/page')
+def user_profile_page():
+	return render_template('user_profile.html')
 		
 if __name__ == "__main__":
 	application.debug = True

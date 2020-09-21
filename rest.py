@@ -1,6 +1,6 @@
 import dao
 from app import application
-from flask import jsonify, request, session
+from flask import jsonify, request, session, redirect, url_for
 from mail_config import mail
 from flask_mail import Mail, Message
 		
@@ -18,7 +18,7 @@ def login():
 			session['username'] = user
 			return jsonify({'message' : 'User logged in successfully'})
 
-	resp = jsonify({'message' : 'Bad Request - invalid credendtials'})
+	resp = jsonify({'message' : 'Bad Request - invalid credentials'})
 	resp.status_code = 400
 	return resp
 
@@ -26,6 +26,7 @@ def login():
 def logout():
 	if 'username' in session:
 		session.pop('username', None)
+	#return (redirect(url_for('.home_page')))
 	return jsonify({'message' : 'You successfully logged out'})
     
 @application.route('/signup', methods=['POST'])
