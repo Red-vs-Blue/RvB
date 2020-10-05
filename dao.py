@@ -1,7 +1,30 @@
 import pymysql
 from db_config import mysql
 from werkzeug.security import check_password_hash
-			
+
+def populateNational():
+	conn = None;
+	cursor = None;
+	
+	try:
+		conn = mysql.connect()
+		cursor = conn.cursor()
+		
+		sql = "SELECT id, title, votes FROM pages WHERE area=National"
+		
+		cursor.execute(sql)
+		row = cursor.fetchmany(size=10)
+
+		return row
+
+	except Exception as e:
+		print(e)
+
+	finally:
+		if cursor and conn:
+			cursor.close()
+			conn.close()
+
 def login(email, pwd):
 	conn = None;
 	cursor = None;
