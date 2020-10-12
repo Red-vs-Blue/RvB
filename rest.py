@@ -39,7 +39,7 @@ def logout():
         session.pop('email', None)
         session.pop('party', None)
         session.pop('date', None)
-    #return (redirect(url_for('.home_page')))
+    # return (redirect(url_for('.home_page')))
     return jsonify({'message': 'You successfully logged out'})
 
 
@@ -55,7 +55,8 @@ def signup():
     _password = _json['password']
 
     if _username and _password and _firstname and _lastname and _email and _party:
-        user = dao.signup(_username, _firstname, _lastname, _email, _party, _password)
+        user = dao.signup(_username, _firstname, _lastname,
+                          _email, _party, _password)
 
         if user != None:
             session['username'] = user
@@ -93,10 +94,11 @@ def contact():
     resp.status_code = 400
     return resp
 
+
 @application.route('/retrieve_thread', methods=['GET'])
 def retrieve_thread():
     thread = dao.retrieve_thread()
-    
+
     if thread != None:
         #p1 = post(thread[0], thread[1], thread[2], thread[3], thread[4], thread[5], thread[6])
         session['post_username'] = thread[0]
@@ -108,12 +110,13 @@ def retrieve_thread():
         session['post_title'] = thread[6]
         return jsonify({'message': 'Thread successfully retrieved'})
 
+
 class post:
-  def __init__(self, username, affiliation, post_text, time_and_date, votes, page, post_title):
-    self.username = username
-    self.affiliation = affiliation
-    self.post_text = post_text
-    self.time_and_date = time_and_date
-    self.votes = votes
-    self.page = page
-    self.post_title = post_title 
+    def __init__(self, username, affiliation, post_text, time_and_date, votes, page, post_title):
+        self.username = username
+        self.affiliation = affiliation
+        self.post_text = post_text
+        self.time_and_date = time_and_date
+        self.votes = votes
+        self.page = page
+        self.post_title = post_title
