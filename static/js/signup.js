@@ -13,7 +13,8 @@ $(document).ready(function () {
 
 	$('#signupSubmit').on('click', function (e) {
 		e.preventDefault();
-
+		var username = $('#username').val();
+		var party = $('#party').val();
 		var first = $('#first').val();
 		var last = $('#last').val();
 		var email = $('#email').val();
@@ -33,16 +34,17 @@ $(document).ready(function () {
 					method: "POST",
 					url: '/signup',
 					contentType: 'application/json;charset=UTF-8',
-					data: JSON.stringify({ 'first': first, 'last': last, 'username': email, 'password': pwd, 'password_2': pwd_2 }),
+					data: JSON.stringify({ 'username': username, 'first': first, 'last': last, 'email': email, 'party': party, 'password': pwd, 'password_2': pwd_2 }),
 					dataType: "json",
 					success: function (data) {
 						localStorage.setItem('loggedin', 1);
-						$('#user_profile').html(email);
+						$('#user_profile').html(username);
 						$('#sign').hide();
 						$('#loginform').hide();
 						$('#signupform').hide();
 						$('#logoff').show();
 						$('#msg').html('<span style="color: green;">Successfully created an account. You are logged in</span>');
+						window.location.href = "/";
 					},
 					statusCode: {
 						400: function () {
@@ -70,6 +72,7 @@ $(document).ready(function () {
 				$('#sign').show();
 				$('#logoff').hide();
 				$('#msg').html('<span style="color: green;">You are logged off</span>');
+				window.location.href = "/";
 			},
 			error: function (err) {
 				console.log(err);

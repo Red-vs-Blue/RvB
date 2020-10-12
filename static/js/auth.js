@@ -27,7 +27,7 @@ $(document).ready(function () {
 					method: "POST",
 					url: '/login',
 					contentType: 'application/json;charset=UTF-8',
-					data: JSON.stringify({ 'username': email, 'password': pwd }),
+					data: JSON.stringify({ 'email': email, 'password': pwd }),
 					dataType: "json",
 					success: function (data) {
 						localStorage.setItem('loggedin', 1);
@@ -36,6 +36,7 @@ $(document).ready(function () {
 						$('#loginform').hide();
 						$('#logoff').show();
 						$('#msg').html('<span style="color: green;">You are logged in</span>');
+						window.location.href = "/";
 					},
 					statusCode: {
 						400: function () {
@@ -63,6 +64,7 @@ $(document).ready(function () {
 				$('#sign').show();
 				$('#logoff').hide();
 				$('#msg').html('<span style="color: green;">You are logged off</span>');
+				window.location.href = "/";
 			},
 			error: function (err) {
 				console.log(err);

@@ -1,30 +1,42 @@
 {% extends '/base.html' %}
 {% block script %}
-<script type="text/javascript" src="{{ url_for('static', filename='../static/js/auth.js') }}" />
+
 {% endblock %}
+
 {% block head %}
-	<title>About us</title>
+    
+    <link rel="stylesheet" href="../static/css/WOWSlider-about-us-1.css">
+    <link rel="stylesheet" href="../static/css/WOWSlider-about-us-2.css">
+    <link rel="stylesheet" href="../static/css/WOWSlider-about-us.css">
+	
 {% endblock %}
 
 {% block body %}
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <p style="text-align: center;"><br><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod </strong><br><strong>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </strong><br><strong>veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea </strong><br><strong>commodo consequat. Duis aute irure dolor in reprehenderit in voluptate </strong><br><strong>velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint </strong><br><strong>occaecat cupidatat non proident, sunt in culpa qui officia deserunt </strong><br><strong>mollit anim id est laborum.</strong><br><br></p>
+<section class="about-us">
+    <div class="container">
+        <div class="row padding-content">
+            <div class="col-md-4 no-padding">
+                <div id="wowslider-container1">
+                    <div class="ws_images">
+                        <ul>
+                            <li><img id="wows1_0" src="../static/img/EvsD1.jpg" style="width: 421px;height: 477px;"></li>
+                            <li><img id="wows1_1" src="../static/img/3Hb0RH_s6s8.jpg"></li>
+                            <li><img id="wows1_2" src="../static/img/6NMPUFefwgM.jpg"></li>
+                            <li><img id="wows1_3" src="../static/img/8sl6Q86gsfM.jpg"></li>
+                            <li><img id="wows1_4" src="../static/img/wNvJKN1zPtE.jpg"><div>Custom Code</div></li>
+                        </ul>
+                    </div>
+                    <div class="ws_script" href="http://wowslider.net" style="position:absolute;left:-99%"><a href="http://wowslider.net">javascript image slider</a><strong>Bold</strong></div>
+                    <div class="ws_shadow"></div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6" style="text-align: center;"><button class="btn btn-primary" type="button">Post a Question!</button></div>
-                <div class="col-md-6" style="text-align: center;"><a class="btn btn-primary" role="button" href="contact.html">Become a Moderator!</a></div>
+            <div class="col-md-8 abt-right" style="height: 359px;margin: 0px;padding: -37px;">
+                <h1 class="text-center" style="text-align: center;">About Elephant vs Donkey</h1>
+                <p style="width: 688px;height: 27px;padding: 83px;margin: 3px;">This project is a political resource website with user-driven content. “A political website for people that hate politics.” The purpose is to have a user-friendly website where users can see diverse political information that consists
+                    of upvoted comments. The site will span from local to national politics, covering both individual politicians and any local or national voting issue. There will be an emphasis on citing sources (much like Wikipedia) so that
+                    the comments will be as validated and accurate as possible. </p>
             </div>
         </div>
     </div>
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="height: 300px;"><img src="../static/img/discussion-featured.jpg" style="width: 1100px;height: 400px;"></div>
-            </div>
-        </div>
-    </div>
+</section>
 {% endblock %}
