@@ -21,7 +21,7 @@ def login():
             session['first'] = user[1]
             session['last'] = user[2]
             session['email'] = user[3]
-            session['party'] = user[4]
+            session['party'] = dao.partyID_to_party(user[4])
             session['date'] = user[6]
             return jsonify({'message': 'User logged in successfully'})
 
