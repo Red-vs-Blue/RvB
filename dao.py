@@ -53,8 +53,7 @@ def signup(username, firstname, lastname, email, party, pwd):
                 party = 2
             else:
                 party = 1
-            val = (username, firstname, lastname,
-                   email, party, pwd, creation_date)
+            val = (username, firstname, lastname, email, party, pwd, creation_date)
             cursor.execute(sql, val)
             conn.commit()
             return username
@@ -92,8 +91,7 @@ def contact(name, email, message):
         if cursor and conn:
             cursor.close()
             conn.close()
-
-
+            
 def retrieve_thread():
     conn = None
     cursor = None
@@ -101,12 +99,13 @@ def retrieve_thread():
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
-
+        
         sql = "SELECT username, affiliation, post_text, time_and_date, votes, page, post_title  FROM posts"
 
         cursor.execute(sql)
         row = cursor.fetchone()
         return row
+
 
     except Exception as e:
         print(e)
@@ -115,7 +114,6 @@ def retrieve_thread():
         if cursor and conn:
             cursor.close()
             conn.close()
-
 
 def pageID_to_page(pageID):
     conn = None
@@ -124,14 +122,15 @@ def pageID_to_page(pageID):
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
-
+        
         sql = "SELECT id, title, area, votes  FROM pages WHERE id=%s"
-        sql_where = (int(pageID))
+        sql_where = ( int(pageID))
 
         cursor.execute(sql, sql_where)
 
         row = cursor.fetchone()
         return row[1]
+
 
     except Exception as e:
         print(e)
@@ -140,7 +139,6 @@ def pageID_to_page(pageID):
         if cursor and conn:
             cursor.close()
             conn.close()
-
 
 def partyID_to_party(partyID):
     conn = None
@@ -149,14 +147,15 @@ def partyID_to_party(partyID):
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
-
+        
         sql = "SELECT id, affiliation FROM affiliation WHERE id=%s"
-        sql_where = (int(partyID))
+        sql_where = ( int(partyID))
 
         cursor.execute(sql, sql_where)
 
         row = cursor.fetchone()
         return row[1]
+
 
     except Exception as e:
         print(e)
@@ -165,3 +164,25 @@ def partyID_to_party(partyID):
         if cursor and conn:
             cursor.close()
             conn.close()
+            
+def change_password(password, username):
+    conn = None
+    cursor = None
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        sql = "UPDATE accounts SET password=%s WHERE username=%s"
+        sql_where = (password, username)
+        cursor.execute(sql, sql_where)
+        conn.commit()
+        return True
+
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+    

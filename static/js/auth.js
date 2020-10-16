@@ -53,6 +53,45 @@ $(document).ready(function () {
 		}
 	});
 
+	$('#updateButton').on('click', function (e) {
+		e.preventDefault();
+		
+		
+		var email = $('#account-email').val();
+		var newPassword = $('#account-pass').val();
+		var confirmPassword = $('#account-confirm-pass').val();
+
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
+
+		if (newPassword != "" && confirmPassword != "" && email != "") {
+			if (confirmPassword =! newPassword) {
+				$('#msg').html('<span style="color: red;">The passwords do not match</span>');
+			} else {
+				$.ajax({
+					method: "POST",
+					url: '/update_password',
+					contentType: 'application/json;charset=UTF-8',
+					data: JSON.stringify({ 'newPassword': newPassword, 'confirmPassword': confirmPassword, 'email': email }),
+					dataType: "json",
+					success: function (data) {
+						$('#msg').html('<span style="color: green;">Password successfully changed</span>');
+						window.alert("Password successfully changed")
+					},
+					statusCode: {
+						400: function () {
+							$('#msg').html('<span style="color: red;">Bad request - invalid credentials</span>');
+						}
+					},
+					error: function (err) {
+						console.log(err);
+					}
+				});
+			}
+		} else {
+			$('#msg').html('<span style="color: red;">Invalid username and password</span>');
+		}
+	});
+
 	$('#logout').on('click', function (e) {
 		e.preventDefault();
 

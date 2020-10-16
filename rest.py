@@ -39,7 +39,7 @@ def logout():
         session.pop('email', None)
         session.pop('party', None)
         session.pop('date', None)
-    # return (redirect(url_for('.home_page')))
+    #return (redirect(url_for('.home_page')))
     return jsonify({'message': 'You successfully logged out'})
 
 
@@ -55,8 +55,7 @@ def signup():
     _password = _json['password']
 
     if _username and _password and _firstname and _lastname and _email and _party:
-        user = dao.signup(_username, _firstname, _lastname,
-                          _email, _party, _password)
+        user = dao.signup(_username, _firstname, _lastname, _email, _party, _password)
 
         if user != None:
             session['username'] = user
@@ -94,29 +93,29 @@ def contact():
     resp.status_code = 400
     return resp
 
-
 @application.route('/retrieve_thread', methods=['GET'])
 def retrieve_thread():
     thread = dao.retrieve_thread()
-
+    
     if thread != None:
-        #p1 = post(thread[0], thread[1], thread[2], thread[3], thread[4], thread[5], thread[6])
-        session['post_username'] = thread[0]
-        session['post_affiliation'] = dao.partyID_to_party(thread[1])
-        session['post_text'] = thread[2]
-        session['time_and_date'] = thread[3]
-        session['post_votes'] = thread[4]
-        session['page'] = dao.pageID_to_page(thread[5])
-        session['post_title'] = thread[6]
-        return jsonify({'message': 'Thread successfully retrieved'})
+        postdict = {
 
+        }
+        postdict['post_username'] = thread[0]
+        postdict['post_affiliation'] = dao.partyID_to_party(thread[1])
+        postdict['post_text'] = thread[2]
+        postdict['time_and_date'] = thread[3]
+        postdict['post_votes'] = thread[4]
+        postdict['page'] = dao.pageID_to_page(thread[5])
+        postdict['post_title'] = thread[6]
+        return postdict
+        #return jsonify({'message': 'Thread successfully retrieved'})
 
-class post:
-    def __init__(self, username, affiliation, post_text, time_and_date, votes, page, post_title):
-        self.username = username
-        self.affiliation = affiliation
-        self.post_text = post_text
-        self.time_and_date = time_and_date
-        self.votes = votes
-        self.page = page
-        self.post_title = post_title
+@application.route('/update_password', methods=['POST'])
+def update_password():
+    _json = request.json
+    _newPassword = _json['newPassword']
+    _confirmPassword = _json['confirmPassword']
+    update = dao.change_password(_newPassword, session['username'])
+    if update == True:
+        return jsonify({'message': 'User successfully updated'})

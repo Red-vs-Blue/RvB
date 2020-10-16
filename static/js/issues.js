@@ -1,14 +1,14 @@
 $(document).ready(function () {
 	var isLoggedIn = localStorage.getItem('loggedin');
 
-	$( function() {
-		$.ajax({ 
-		method: "GET",
-		url: '/retrieve_thread',
-		contentType: 'application/json;charset=UTF-8',
-		success: function(){
-			}});
-	} );
+	//$( function() {
+	//	$.ajax({ 
+	//	method: "GET",
+	//	url: '/retrieve_thread',
+	//	contentType: 'application/json;charset=UTF-8',
+	//	success: function(){
+	//		}});
+	//} );
 
 	if (isLoggedIn == 1) {
 		$('#sign').hide();

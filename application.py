@@ -20,7 +20,7 @@ def contact_page():
 
 @application.route('/issues/page')
 def issues_page():
-    return render_template('issues.html')
+    return render_template('issues.html', postdict = rest.retrieve_thread())
 
 
 @application.route('/local/page')
@@ -35,7 +35,7 @@ def login_page():
 
 @application.route('/politicians/page')
 def politicians_page():
-    return render_template('politicians.html')
+    return render_template('politicians.html', postdict = rest.retrieve_thread())
 
 
 @application.route('/signup/page')
