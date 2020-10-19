@@ -18,22 +18,77 @@
     display:inline;
 }
 
-a {
-  padding-left: 5px;
+#block_container
+{
+    text-align:inline;
 }
 
-/* some simple transitions to make the upvote and downvote
-buttons fade in as a visual cue for the user */
-
-.glyphicon {
-  opacity: 1;
-  transition: opacity .25s ease-in-out;
-  -moz-transition: opacity .25s ease-in-out;
-  -webkit-transition: opacity .25s ease-in-out;
+#block_vote, #block_title
+{
+    display:inline;
 }
 
-.glyphicon:hover {
-  opacity: 0.75;
+
+
+$background-color: #F0F0F0;
+
+body {
+  background-color: $background-color;
+}
+
+
+
+h1 {
+  font-family: sans-serif;
+}
+
+.vote {
+  border: none;
+  background-color: $background-color; 
+  width: 47px;
+  height: 21.5px;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  
+  &:active {
+    outline: none;
+    border: none;
+  }
+  
+  &:focus {
+    outline: 0;
+  }
+}
+
+.upArrow {
+  x: 0px;
+  y: 0px;
+  enable-background: new 0 0 11.5 6.4;
+  path {
+    fill: #BBBBBB;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    margin: 0;
+  }
+}
+
+.downArrow {
+  x: 0px;
+  y: 0px;
+  enable-background: new 0 0 11.5 6.4;
+  path {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #BBBBBB;
+  }
+}
+
+#upButton :hover {
+  fill: #6CC576;
   cursor: pointer;
 }
 
+#downButton :hover {
+  fill: #FF586C;
+  cursor: pointer;
+}
