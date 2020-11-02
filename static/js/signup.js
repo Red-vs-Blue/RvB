@@ -38,6 +38,7 @@ $(document).ready(function () {
 					dataType: "json",
 					success: function (data) {
 						localStorage.setItem('loggedin', 1);
+						localStorage.setItem('email', email);
 						$('#user_profile').html(username);
 						$('#sign').hide();
 						$('#loginform').hide();
@@ -68,7 +69,7 @@ $(document).ready(function () {
 			url: '/logout',
 			dataType: "json",
 			success: function (data) {
-				localStorage.setItem('loggedin', 0);
+				localStorage.clear()
 				$('#sign').show();
 				$('#logoff').hide();
 				$('#msg').html('<span style="color: green;">You are logged off</span>');
