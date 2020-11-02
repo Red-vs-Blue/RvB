@@ -1,12 +1,16 @@
 import rest
 from app import application
 from flask import render_template
+from flask import Flask
 
 
 @application.route('/')
 def home_page():
     return render_template('index.html')
 
+@application.route('/<string:area>/<string:issue>')
+def posts(area, issue):
+    return render_template('posts.html', postdict = rest.retrieve_thread())
 
 @application.route('/about/page')
 def about_page():
