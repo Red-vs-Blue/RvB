@@ -56,6 +56,11 @@ def faq_page():
 def user_profile_page():
     return render_template('user_profile.html')
 
+    
+@application.route('/make_post/page')
+def make_post_page():
+    return render_template('make_post.html')
+
 
 if __name__ == "__main__":
     application.debug = True

@@ -108,6 +108,7 @@ def retrieve_thread():
         postdict['post_votes'] = thread[4]
         postdict['page'] = dao.pageID_to_page(thread[5])
         postdict['post_title'] = thread[6]
+        postdict['post_id'] = thread[7]
         return postdict
         #return jsonify({'message': 'Thread successfully retrieved'})
 
@@ -119,3 +120,48 @@ def update_password():
     update = dao.change_password(_newPassword, session['username'])
     if update == True:
         return jsonify({'message': 'User successfully updated'})
+        
+@application.route('/upvote', methods=['POST'])
+def upvote():
+    _json = request.json
+    _email = _json['email']
+    _post_id = _json['post_id']
+    upvoteStatus = dao.upvote(_email, _post_id)
+    if upvoteStatus == True:
+        return jsonify({'message': 'Upvote was successful'})
+    else:
+        resp = jsonify({'message': 'You have already upvoted'})
+        resp.status_code = 400
+        return resp
+
+@application.route('/downvote', methods=['POST'])
+def downvote():
+    _json = request.json
+    _email = _json['email']
+    _post_id = _json['post_id']
+    downvoteStatus = dao.downvote(_email, _post_id)
+    if downvoteStatus == True:
+        return jsonify({'message': 'Downvote was successful'})
+    else:
+        resp = jsonify({'message': 'You have already downvoted'})
+        resp.status_code = 400
+        return resp
+
+@application.route('/star', methods=['POST'])
+def star():
+    _json = request.json
+    _email = _json['email']
+    _post_id = _json['post_id']
+    starStatus = dao.star(_email, _post_id)
+    if starStatus == True:
+        return jsonify({'message': 'Bookmark was successful'})
+    else:
+        return jsonify({'message': 'You have unmarked this post.'})
+
+@application.route('/checkVoteStatus', methods=['POST'])
+def checkVoteStatus():
+    _json = request.json
+    _email = _json['email']
+    _post_id = _json['post_id']
+    voteStatus = dao.checkVoteStatus(_email, _post_id)
+    return voteStatus
