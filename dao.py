@@ -52,7 +52,7 @@ def signup(username, firstname, lastname, email, party, pwd):
             # Create a specific function call for turning party string into int
             if (party == "Democrat" or party == "democrat"):
                 party = 2
-            elif (party == "Liberterian" or party == "liberterian"):
+            elif (party == "Libertarian" or party == "libertarian"):
                 party = 3
             elif (party == "Green" or party == "green"):
                 party = 4
