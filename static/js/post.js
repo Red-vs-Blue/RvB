@@ -113,19 +113,16 @@ $(document).ready(function () {
 	var isLoggedIn = localStorage.getItem('loggedin');
 
 	if (isLoggedIn == 1) {
-		//var post_id = $('#postID').text();
+		var post_id = $('#postID').text();
 		var email = localStorage.getItem('email');
 		$.ajax({
 			method: "POST",
-			url: '/checkVoteStatus',
+			url: '/checkPostVoteStatus',
 			contentType: 'application/json;charset=UTF-8',
-			//data: JSON.stringify({ 'email': email, 'post_id': post_id }),
-			data: JSON.stringify({ 'email': email }),
+			data: JSON.stringify({ 'email': email, 'post_id': post_id }),
 			success: function (data) {
-				for (var voteRow in data) {
-					var post_id = data[voteRow].post_id
-					var voteStatus = data[voteRow].voteStatus
-					var bookmarkStatus = data[voteRow].bookmarkStatus
+					var voteStatus = data.voteStatus
+					var bookmarkStatus = data.bookmarkStatus
 					localStorage.setItem("post_id:" + post_id + "email:" + email, voteStatus);
 					localStorage.setItem("post_id:" + post_id + "email:" + email + "star", bookmarkStatus);
 					if (voteStatus == 1) {
@@ -142,7 +139,6 @@ $(document).ready(function () {
 					else if (bookmarkStatus == 0) {
 						document.getElementById("star_" + post_id).classList.remove("star-on");
 					}
-				}
 
 			},
 			error: function (err) {

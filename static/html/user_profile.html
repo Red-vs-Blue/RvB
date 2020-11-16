@@ -74,7 +74,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="account-phone">Party Affiliation</label>
-                        <input class="form-control" type="text" id="account-phone" value="{{session.party}}" required="">
+                        <select class="form-control" type="text" id="account-affiliation" value="{{session.party}}" required="">
+                        <option value="" disabled selected hidden>{{session.party}}</option>
+                        <option value="Democrat">Democrat</option>
+                        <option value="Libertarian">Libertarian</option>
+                        <option value="Green">Green</option>
+                        <option value="Constitution">Constitution</option>
+                        <option value="Republican">Republican</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">

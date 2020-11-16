@@ -4,6 +4,7 @@ from app import application
 from flask import jsonify, request, session, redirect, url_for
 from mail_config import mail
 from flask_mail import Mail, Message
+import json
 
 
 @application.route('/login', methods=['POST'])
@@ -39,7 +40,7 @@ def logout():
         session.pop('email', None)
         session.pop('party', None)
         session.pop('date', None)
-    #return (redirect(url_for('.home_page')))
+    # return (redirect(url_for('.home_page')))
     return jsonify({'message': 'You successfully logged out'})
 
 
@@ -55,7 +56,8 @@ def signup():
     _password = _json['password']
 
     if _username and _password and _firstname and _lastname and _email and _party:
-        user = dao.signup(_username, _firstname, _lastname, _email, _party, _password)
+        user = dao.signup(_username, _firstname, _lastname,
+                          _email, _party, _password)
 
         if user != None:
             session['username'] = user
@@ -93,10 +95,11 @@ def contact():
     resp.status_code = 400
     return resp
 
+
 @application.route('/retrieve_thread', methods=['GET'])
-def retrieve_thread():
-    thread = dao.retrieve_thread()
-    
+def retrieve_thread(post_id):
+    thread = dao.retrieve_thread(post_id)
+
     if thread != None:
         postdict = {
 
@@ -110,17 +113,61 @@ def retrieve_thread():
         postdict['post_title'] = thread[6]
         postdict['post_id'] = thread[7]
         return postdict
-        #return jsonify({'message': 'Thread successfully retrieved'})
+        # return jsonify({'message': 'Thread successfully retrieved'})
+
+
+@application.route('/retrieve_thread_left', methods=['GET'])
+def retrieve_thread_left():
+    thread = dao.retrieve_thread_left()
+
+    if thread != None:
+        data = []
+        for item in thread:
+            post_username = item[0]
+            post_affiliation = dao.partyID_to_party(item[1])
+            post_text = item[2]
+            time_and_date = item[3]
+            post_votes = item[4]
+            page = dao.pageID_to_page(item[5])
+            post_title = item[6]
+            post_id = item[7]
+            data.append({'post_username': post_username, 'post_affiliation': post_affiliation,
+                         'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
+        return data
+
+
+@application.route('/retrieve_thread_right', methods=['GET'])
+def retrieve_thread_right():
+    thread = dao.retrieve_thread_right()
+
+    if thread != None:
+        data = []
+        for item in thread:
+            post_username = item[0]
+            post_affiliation = dao.partyID_to_party(item[1])
+            post_text = item[2]
+            time_and_date = item[3]
+            post_votes = item[4]
+            page = dao.pageID_to_page(item[5])
+            post_title = item[6]
+            post_id = item[7]
+            data.append({'post_username': post_username, 'post_affiliation': post_affiliation,
+                         'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
+        return data
+
 
 @application.route('/update_password', methods=['POST'])
 def update_password():
     _json = request.json
     _newPassword = _json['newPassword']
     _confirmPassword = _json['confirmPassword']
-    update = dao.change_password(_newPassword, session['username'])
+    _party = _json['party']
+    update = dao.change_password(_newPassword, session['username'], _party)
     if update == True:
+        session['party'] = _party
         return jsonify({'message': 'User successfully updated'})
-        
+
+
 @application.route('/upvote', methods=['POST'])
 def upvote():
     _json = request.json
@@ -133,6 +180,7 @@ def upvote():
         resp = jsonify({'message': 'You have already upvoted'})
         resp.status_code = 400
         return resp
+
 
 @application.route('/downvote', methods=['POST'])
 def downvote():
@@ -147,6 +195,7 @@ def downvote():
         resp.status_code = 400
         return resp
 
+
 @application.route('/star', methods=['POST'])
 def star():
     _json = request.json
@@ -158,10 +207,25 @@ def star():
     else:
         return jsonify({'message': 'You have unmarked this post.'})
 
+
 @application.route('/checkVoteStatus', methods=['POST'])
 def checkVoteStatus():
     _json = request.json
     _email = _json['email']
-    _post_id = _json['post_id']
-    voteStatus = dao.checkVoteStatus(_email, _post_id)
-    return voteStatus
+    votesStatus = dao.checkVoteStatus(_email)
+    data = []
+    for item in votesStatus:
+        post_id = item[0]
+        voteStatus = item[1]
+        bookmarkStatus = item[2]
+        data.append({'post_id': post_id, 'voteStatus': voteStatus,
+                     'bookmarkStatus': bookmarkStatus})
+    return jsonify(data)
+
+@application.route('/checkPostVoteStatus', methods=['POST'])
+def checkPostVoteStatus():
+    _json = request.json
+    _email = _json['email']
+    _postID = _json['post_id']
+    voteStatus = dao.checkPostVoteStatus(_email, _postID)
+    return jsonify({'voteStatus': voteStatus[0], 'bookmarkStatus': voteStatus[1]})
