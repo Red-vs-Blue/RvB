@@ -10,7 +10,8 @@ def home_page():
 
 @application.route('/<string:area>/<string:issue>')
 def posts(area, issue):
-    return render_template('posts.html', postdict = rest.retrieve_thread())
+    print("application.py reporting in!! ########")
+    return render_template('posts.html', postdict = rest.retrieve_threads(area,issue))
 
 @application.route('/about/page')
 def about_page():

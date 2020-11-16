@@ -122,6 +122,39 @@ def retrieve_thread():
             cursor.close()
             conn.close()
 
+def retrieve_threads(area,issue):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        
+        sql =   ("SELECT a.id, a.username, a.post_text, a.affiliation, "
+                "a.time_and_date, a.votes, a.page, a.post_title, a.numReports "
+                "FROM posts a "
+                "LEFT JOIN pages b "
+                "ON a.page = b.id "
+                "WHERE a.affiliation = 1 "
+                "AND b.area = %s "
+                "AND b.title = %s;"
+                )
+        # WANT: posts where post.page = pageID and post.affiliation = affiliation
+        sql_where = (area, issue)
+
+        cursor.execute(sql, sql_where)
+        table = cursor.fetchmany()
+        return table
+        #  
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
 def pageID_to_page(pageID):
     conn = None
     cursor = None

@@ -112,6 +112,26 @@ def retrieve_thread():
         return postdict
         #return jsonify({'message': 'Thread successfully retrieved'})
 
+@application.route('/retrieve_threads', methods=['GET'])
+def retrieve_threads(area, issue):
+    threads = dao.retrieve_threads(area, issue)
+    print(threads)
+    return threads
+    
+"""     if thread != None:
+        postdict = {
+
+        }
+        postdict['post_username'] = thread[0]
+        postdict['post_affiliation'] = dao.partyID_to_party(thread[1])
+        postdict['post_text'] = thread[2]
+        postdict['time_and_date'] = thread[3]
+        postdict['post_votes'] = thread[4]
+        postdict['page'] = dao.pageID_to_page(thread[5])
+        postdict['post_title'] = thread[6]
+        postdict['post_id'] = thread[7] """
+        #return jsonify({'message': 'Thread successfully retrieved'})
+
 @application.route('/update_password', methods=['POST'])
 def update_password():
     _json = request.json
