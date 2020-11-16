@@ -143,9 +143,9 @@ def retrieve_threads(area,issue):
         sql_where = (area, issue)
 
         cursor.execute(sql, sql_where)
-        table = cursor.fetchmany()
+        table = cursor.fetchmany(10)
+        print(table)
         return table
-        #  
 
     except Exception as e:
         print(e)
