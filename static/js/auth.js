@@ -1,7 +1,7 @@
 function make_post() {
 	var isLoggedIn = localStorage.getItem('loggedin');
 	if (isLoggedIn == 1) {
-		window.location.href='/make_post/page';
+		window.location.href = '/make_post/page';
 	} else {
 		window.alert("Please login in order to make a post.")
 	}

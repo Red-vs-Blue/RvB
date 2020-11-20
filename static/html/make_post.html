@@ -6,7 +6,7 @@
 
 {% block script %}
 
-<script type="text/javascript" src="{{ url_for('static', filename='../static/js/auth.js') }}"/>
+<script type="text/javascript" src="{{ url_for('static', filename='../static/js/make_post.js') }}" />
 
 {% endblock %}
 
@@ -19,20 +19,20 @@
 
 <form>  
   <div class="form-group">
-    <h5><label for="exampleFormControlSelect1">Political Party Affiliation</label></h5>
-    <select class="form-control" id="exampleFormControlSelect1" required>
+    <h5><label for="party_affiliation">Political Party Affiliation</label></h5>
+    <select class="form-control" id="party_affiliation" required>
     <option value="">Open this select menu</option>
-    <option>Democratic</option>
+    <option>Democrat</option>
     <option>Republican</option>
-	<option>Green Party</option>
-	<option>Communist Party</option>
-	<option>NSDAP</option>
+	  <option>Green</option>
+	  <option>Constitution</option>
+	  <option>Libertarian</option>
     <option>Unaffiliated</option>
     </select>
   </div>
   <div class="form-group">
-    <h5><label for="exampleFormControlSelect2">Topic</label></h5>
-    <select multiple class="form-control" id="exampleFormControlSelect2">
+    <h5><label for="post_topic">Topic</label></h5>
+    <select multiple class="form-control" id="post_topic">
       <option>Abortion</option>
       <option>Immigration</option>
       <option>Health Care</option>
@@ -42,20 +42,20 @@
   </div>
 
   <div class="form-group">
-   <h5> <label for="formGroupExampleInput">Title</label></h5>
-    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Post Title" required>
+   <h5> <label for="post_title">Title</label></h5>
+    <input type="text" class="form-control" id="post_title" placeholder="Post Title" required>
   </div>
 
   <div class="form-group">
-    <h5><label for="exampleFormControlTextarea1">Post</label></h5>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Detail About Post Goes Here"required></textarea>
+    <h5><label for="post_text">Post</label></h5>
+    <textarea class="form-control" id="post_text" rows="3" placeholder="Details About Your Post Goes Here"required></textarea>
 
     <div class="custom-file">
-        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+        <input type="file" class="custom-file-input" id="validatedCustomFile">
         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
         <div class="invalid-feedback">Example invalid custom file feedback</div>
 
-        <button class="btn btn-primary" type="submit">Submit Post</button>
+        <button class="btn btn-primary" type="submit" id="make_post_button">Submit Post</button>
         <button class="btn btn-primary" type="reset">Reset Post</button>
 
 
@@ -65,5 +65,3 @@
 </form>
       
 {% endblock %}
-
-

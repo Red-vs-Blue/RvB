@@ -22,7 +22,7 @@ function upvote_click(post_id) {
 					number = number + 1
 					count.innerHTML = number;
 				}
-				
+
 				localStorage.setItem("post_id:" + post_id + "email:" + email, 1);
 			},
 			statusCode: {

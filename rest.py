@@ -117,8 +117,8 @@ def retrieve_thread(post_id):
 
 
 @application.route('/retrieve_thread_left', methods=['GET'])
-def retrieve_thread_left():
-    thread = dao.retrieve_thread_left()
+def retrieve_thread_left(affiliation=2):
+    thread = dao.retrieve_thread_left(affiliation)
 
     if thread != None:
         data = []
@@ -137,8 +137,8 @@ def retrieve_thread_left():
 
 
 @application.route('/retrieve_thread_right', methods=['GET'])
-def retrieve_thread_right():
-    thread = dao.retrieve_thread_right()
+def retrieve_thread_right(affiliation=1):
+    thread = dao.retrieve_thread_right(affiliation)
 
     if thread != None:
         data = []
@@ -229,3 +229,23 @@ def checkPostVoteStatus():
     _postID = _json['post_id']
     voteStatus = dao.checkPostVoteStatus(_email, _postID)
     return jsonify({'voteStatus': voteStatus[0], 'bookmarkStatus': voteStatus[1]})
+
+@application.route('/make_post', methods=['POST'])
+def make_post():
+    _json = request.json
+    
+    _party_affiliation = _json['party_affiliation']
+    _post_topic = _json['post_topic']
+    _post_title = _json['post_title']
+    _post_text = _json['post_text']
+    _username = session['username']
+    _post_date = datetime.datetime.now()
+
+
+    make_post_status = dao.make_post(_username, _party_affiliation, _post_topic, _post_title, _post_text, _post_date)
+    if make_post_status == True:
+        return jsonify({'message': 'Post was successful'})
+    else:
+        resp = jsonify({'message': 'Bad Request - Was not able to make post'})
+        resp.status_code = 400
+        return resp

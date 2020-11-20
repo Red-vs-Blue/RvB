@@ -50,16 +50,7 @@ def signup(username, firstname, lastname, email, party, pwd):
         if (row == None):
             sql = "INSERT  INTO accounts(username, first, last, email, party, password, creation_date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
             # Create a specific function call for turning party string into int
-            if (party == "Democrat" or party == "democrat"):
-                party = 2
-            elif (party == "Libertarian" or party == "libertarian"):
-                party = 3
-            elif (party == "Green" or party == "green"):
-                party = 4
-            elif (party == "Constitution" or party == "constitution"):
-                party = 5
-            else:
-                party = 1
+            party = party_to_partyID(party)
             val = (username, firstname, lastname,
                    email, party, pwd, creation_date)
             cursor.execute(sql, val)
@@ -227,16 +218,7 @@ def change_password(password, username, party):
     try:
         conn = mysql.connect()
         cursor = conn.cursor()
-        if (party == "Democrat" or party == "democrat"):
-            party = 2
-        elif (party == "Libertarian" or party == "libertarian"):
-            party = 3
-        elif (party == "Green" or party == "green"):
-            party = 4
-        elif (party == "Constitution" or party == "constitution"):
-            party = 5
-        elif (party == "Republican" or party == "republican"):
-            party = 1
+        party = party_to_partyID(party)
         sql = "UPDATE accounts SET password=%s, party=%s WHERE username=%s"
         sql_where = (password, party, username)
         cursor.execute(sql, sql_where)
@@ -425,6 +407,7 @@ def checkVoteStatus(email):
             cursor.close()
             conn.close()
 
+
 def checkPostVoteStatus(email, post_id):
     conn = None
     cursor = None
@@ -436,6 +419,69 @@ def checkPostVoteStatus(email, post_id):
         cursor.execute(sql, sql_where)
         row = cursor.fetchone()
         return row
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+
+def party_to_partyID(party):
+    if (party == "Democrat" or party == "democrat"):
+        party = 2
+    elif (party == "Libertarian" or party == "libertarian"):
+        party = 3
+    elif (party == "Green" or party == "green"):
+        party = 4
+    elif (party == "Constitution" or party == "constitution"):
+        party = 5
+    elif (party == "Republican" or party == "republican"):
+        party = 1
+    return party
+
+def page_to_pageid(page):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        sql = "SELECT id, title FROM pages WHERE title=%s"
+        sql_where = (page)
+
+        cursor.execute(sql, sql_where)
+
+        row = cursor.fetchone()
+        return row[0]
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+def make_post(username, party_affiliation, post_topic, post_title, post_text, post_date):
+
+    conn = None
+    cursor = None
+    print(page_to_pageid(post_topic))
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        if (username and party_affiliation and post_topic and post_title and post_text and post_date):
+            sql = "INSERT  INTO posts(username, affiliation, post_text, time_and_date, votes, page, post_title, numReports) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+            val = (username, party_to_partyID(party_affiliation), post_text, post_date, 0, int(page_to_pageid(post_topic)), post_title, 0)
+            cursor.execute(sql, val)
+            conn.commit()
+            return True
+        return False
 
     except Exception as e:
         print(e)
