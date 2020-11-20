@@ -1,3 +1,11 @@
+function make_post() {
+	var isLoggedIn = localStorage.getItem('loggedin');
+	if (isLoggedIn == 1) {
+		window.location.href = '/make_post/page';
+	} else {
+		window.alert("Please login in order to make a post.")
+	}
+}
 $(document).ready(function () {
 	var isLoggedIn = localStorage.getItem('loggedin');
 
@@ -56,23 +64,24 @@ $(document).ready(function () {
 
 	$('#updateButton').on('click', function (e) {
 		e.preventDefault();
-		
-		
+
+
 		var email = $('#account-email').val();
+		var party = $("#account-affiliation option:selected").text();
 		var newPassword = $('#account-pass').val();
 		var confirmPassword = $('#account-confirm-pass').val();
 
 		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
 
 		if (newPassword != "" && confirmPassword != "" && email != "") {
-			if (confirmPassword =! newPassword) {
+			if (confirmPassword = !newPassword) {
 				$('#msg').html('<span style="color: red;">The passwords do not match</span>');
 			} else {
 				$.ajax({
 					method: "POST",
 					url: '/update_password',
 					contentType: 'application/json;charset=UTF-8',
-					data: JSON.stringify({ 'newPassword': newPassword, 'confirmPassword': confirmPassword, 'email': email }),
+					data: JSON.stringify({ 'newPassword': newPassword, 'confirmPassword': confirmPassword, 'email': email, 'party': party }),
 					dataType: "json",
 					success: function (data) {
 						$('#msg').html('<span style="color: green;">Password successfully changed</span>');
