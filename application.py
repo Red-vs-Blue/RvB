@@ -12,7 +12,7 @@ def home_page():
 @application.route('/<string:area>/<string:issue>')
 def posts(area, issue):
     print("application.py reporting in!! ########")
-    return render_template('posts.html', postdict = rest.retrieve_threads(area,issue))
+    return render_template('posts.html', post_left=rest.retrieve_posts_left(area,issue), post_right=rest.retrieve_posts_right(area,issue))
 
 @application.route('/about/page')
 def about_page():

@@ -155,6 +155,47 @@ def retrieve_thread_right(affiliation=1):
                          'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
         return data
 
+@application.route('/retrieve_posts_left', methods=['GET'])
+def retrieve_posts_left(area,issue,affiliation=2):
+    thread = dao.retrieve_posts_left(area,issue,affiliation)
+
+    if thread != None:
+        data = []
+        print(thread)
+        for item in thread:
+            post_username = item[0]
+            post_affiliation = dao.partyID_to_party(item[1])
+            post_text = item[2]
+            time_and_date = item[3]
+            post_votes = item[4]
+            page = dao.pageID_to_page(item[5])
+            post_title = item[6]
+            post_id = item[7]
+            data.append({'post_username': post_username, 'post_affiliation': post_affiliation,
+                         'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
+
+        return data
+
+@application.route('/retrieve_posts_right', methods=['GET'])
+def retrieve_posts_right(area,issue,affiliation=1):
+    thread = dao.retrieve_posts_right(area,issue,affiliation)
+
+    if thread != None:
+        data = []
+        for item in thread:
+            post_username = item[0]
+            post_affiliation = dao.partyID_to_party(item[1])
+            post_text = item[2]
+            time_and_date = item[3]
+            post_votes = item[4]
+            page = dao.pageID_to_page(item[5])
+            post_title = item[6]
+            post_id = item[7]
+            data.append({'post_username': post_username, 'post_affiliation': post_affiliation,
+                         'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
+        print("THE DATA: ####################################")
+        print(data)
+        return data
 
 @application.route('/retrieve_threads', methods=['GET'])
 def retrieve_threads(area, issue):

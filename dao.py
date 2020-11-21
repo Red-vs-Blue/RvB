@@ -161,7 +161,73 @@ def retrieve_thread_right(affiliation=1):
             cursor.close()
             conn.close()
 
-<<<<<<< HEAD
+def retrieve_posts_left(area,issue,affiliation=2):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        sql =   ("SELECT a.username, a.affiliation, a.post_text,    "
+                "a.time_and_date, a.votes, a.page, a.post_title, a.id "
+                "FROM posts a "
+                "LEFT JOIN pages b "
+                "ON a.page = b.id "
+                "WHERE a.affiliation = 2 "
+                "AND b.area = %s "
+                "AND b.title = %s;"
+                )
+        # WANT: posts where post.page = pageID and post.affiliation = affiliation
+        sql_where = (area, issue)
+
+        cursor.execute(sql, sql_where)
+        table = cursor.fetchmany(10)
+        print(table)
+        return table
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+
+def retrieve_posts_right(area,issue,affiliation=1):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        sql =   ("SELECT a.username, a.affiliation, a.post_text,    "
+                "a.time_and_date, a.votes, a.page, a.post_title, a.id "
+                "FROM posts a "
+                "LEFT JOIN pages b "
+                "ON a.page = b.id "
+                "WHERE a.affiliation = 1 "
+                "AND b.area = %s "
+                "AND b.title = %s;"
+                )
+        # WANT: posts where post.page = pageID and post.affiliation = affiliation
+        sql_where = (area, issue)
+
+        cursor.execute(sql, sql_where)
+        table = cursor.fetchmany(10)
+        print(table)
+        return table
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
 def retrieve_threads(area,issue):
     conn = None
     cursor = None
@@ -194,8 +260,6 @@ def retrieve_threads(area,issue):
         if cursor and conn:
             cursor.close()
             conn.close()
-=======
->>>>>>> master
 
 def pageID_to_page(pageID):
     conn = None
