@@ -161,7 +161,6 @@ def retrieve_posts_left(area,issue,affiliation=2):
 
     if thread != None:
         data = []
-        print(thread)
         for item in thread:
             post_username = item[0]
             post_affiliation = dao.partyID_to_party(item[1])
@@ -193,8 +192,6 @@ def retrieve_posts_right(area,issue,affiliation=1):
             post_id = item[7]
             data.append({'post_username': post_username, 'post_affiliation': post_affiliation,
                          'post_text': post_text, 'time_and_date': time_and_date, 'post_votes': post_votes, 'page': page, 'post_title': post_title, 'post_id': post_id})
-        print("THE DATA: ####################################")
-        print(data)
         return data
 
 @application.route('/retrieve_threads', methods=['GET'])
