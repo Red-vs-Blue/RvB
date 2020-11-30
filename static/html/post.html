@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block head %}
-	<title>Post</title>
+	<title>{{postdict.post_title}}</title>
 {% endblock %}
 
 {% block body %}
@@ -48,6 +48,6 @@
     </div>
 </div>
 
-{{post_comments()}}
+{{post_comments(postcomments)}}
 
 {% endblock %}

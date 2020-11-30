@@ -3,7 +3,7 @@ import datetime
 from flask import jsonify
 from db_config import mysql
 from mail_config import mail
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def login(email, pwd):
@@ -21,7 +21,7 @@ def login(email, pwd):
         row = cursor.fetchone()
 
         if row:
-            if (row[5] == pwd):
+            if (check_password_hash(row[5], pwd)):
                 return row
         return None
 
@@ -52,7 +52,7 @@ def signup(username, firstname, lastname, email, party, pwd):
             # Create a specific function call for turning party string into int
             party = party_to_partyID(party)
             val = (username, firstname, lastname,
-                   email, party, pwd, creation_date)
+                   email, party, generate_password_hash(pwd, "sha256"), creation_date)
             cursor.execute(sql, val)
             conn.commit()
             return username
@@ -442,6 +442,7 @@ def party_to_partyID(party):
         party = 1
     return party
 
+
 def page_to_pageid(page):
     conn = None
     cursor = None
@@ -466,6 +467,7 @@ def page_to_pageid(page):
             cursor.close()
             conn.close()
 
+
 def make_post(username, party_affiliation, post_topic, post_title, post_text, post_date):
 
     conn = None
@@ -477,11 +479,61 @@ def make_post(username, party_affiliation, post_topic, post_title, post_text, po
 
         if (username and party_affiliation and post_topic and post_title and post_text and post_date):
             sql = "INSERT  INTO posts(username, affiliation, post_text, time_and_date, votes, page, post_title, numReports) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-            val = (username, party_to_partyID(party_affiliation), post_text, post_date, 0, int(page_to_pageid(post_topic)), post_title, 0)
+            val = (username, party_to_partyID(party_affiliation), post_text,
+                   post_date, 0, int(page_to_pageid(post_topic)), post_title, 0)
             cursor.execute(sql, val)
             conn.commit()
             return True
         return False
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+def make_comment(username, comment, post_id, comment_date):
+
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        if (username and comment and post_id and comment_date):
+            sql = "INSERT  INTO postComments(post_id, username, text, date) VALUES (%s, %s, %s, %s)"
+            val = (post_id, username, comment,
+                   comment_date)
+            cursor.execute(sql, val)
+            conn.commit()
+            return True
+        return False
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+def retrieve_post_comments(post_id):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        sql = "SELECT id, username, text, date FROM postComments WHERE post_id=%s"
+        sql_where = (post_id)
+
+        cursor.execute(sql, sql_where)
+        rows = cursor.fetchall()
+        return rows
 
     except Exception as e:
         print(e)

@@ -249,3 +249,37 @@ def make_post():
         resp = jsonify({'message': 'Bad Request - Was not able to make post'})
         resp.status_code = 400
         return resp
+
+@application.route('/make_comment', methods=['POST'])
+def make_comment():
+    _json = request.json
+    
+    _comment = _json['comment']
+    _post_id = _json['post_id']
+    _username = session['username']
+    _comment_date = datetime.datetime.now()
+
+
+    make_comment_status = dao.make_comment(_username, _comment, _post_id,  _comment_date)
+    if make_comment_status == True:
+        return jsonify({'message': 'Comment was successful'})
+    else:
+        resp = jsonify({'message': 'Bad Request - Was not able to make comment'})
+        resp.status_code = 400
+        return resp
+
+@application.route('/retrieve_post_comments', methods=['GET'])
+def retrieve_post_comments(post_id):
+    comments = dao.retrieve_post_comments(post_id)
+
+    if comments != None:
+        data = []
+        for item in comments:
+            comment_id = item[0]
+            comment_username = item[1]
+            comment_text = item[2]
+            comment_date = item[3]
+            data.append({'comment_id': comment_id, 'comment_username': comment_username,
+                         'comment_text': comment_text, 'comment_date': comment_date})
+        print(data)
+        return data

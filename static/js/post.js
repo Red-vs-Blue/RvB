@@ -154,6 +154,42 @@ $(document).ready(function () {
         $('#logoff').hide();
     }
 
+	$('#make_comment_button').on('click', function (e) {
+		e.preventDefault();
+
+		var comment = $("#make_comment_text").val();
+        
+        if (isLoggedIn == 1) {
+            if (comment != "" ) {
+                $.ajax({
+                    method: "POST",
+                    url: '/make_comment',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify({ 'comment': comment, 'post_id': post_id}),
+                    dataType: "json",
+                    success: function (data) {
+
+                        window.alert("Comment made")
+                        document.getElementById("make_comment_text").value = "";
+                        location.reload(); 
+                    },
+                    statusCode: {
+                        400: function () {
+                            $('#msg').html('<span style="color: red;">Bad request - invalid credentials</span>');
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            } else {
+                $('#msg').html('<span style="color: red;">Please fill out the missing content</span>');
+            }
+        }
+        else {
+            window.alert("Please login in order to make a comment.")
+        }
+	});
 
     $('#logout').on('click', function (e) {
         e.preventDefault();

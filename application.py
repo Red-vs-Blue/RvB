@@ -57,9 +57,11 @@ def faq_page():
 def user_profile_page():
     return render_template('user_profile.html')
 
+
 @application.route('/post/page/<int:post_id>')
 def post_page(post_id):
-    return render_template('post.html', post_id=post_id, postdict=rest.retrieve_thread(post_id=post_id))
+    return render_template('post.html', post_id=post_id, postdict=rest.retrieve_thread(post_id=post_id), postcomments=rest.retrieve_post_comments(post_id=post_id))
+
 
 @application.route('/make_post/page')
 def make_post_page():
