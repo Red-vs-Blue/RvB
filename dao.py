@@ -178,7 +178,6 @@ def retrieve_posts_left(area,issue,affiliation=2):
                 "AND b.area = %s "
                 "AND b.title = %s;"
                 )
-        # WANT: posts where post.page = pageID and post.affiliation = affiliation
         sql_where = (area, issue)
 
         cursor.execute(sql, sql_where)
@@ -212,7 +211,6 @@ def retrieve_posts_right(area,issue,affiliation=1):
                 "AND b.area = %s "
                 "AND b.title = %s;"
                 )
-        # WANT: posts where post.page = pageID and post.affiliation = affiliation
         sql_where = (area, issue)
 
         cursor.execute(sql, sql_where)
