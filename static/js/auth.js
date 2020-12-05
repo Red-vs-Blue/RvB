@@ -71,7 +71,6 @@ $(document).ready(function () {
 		var newPassword = $('#account-pass').val();
 		var confirmPassword = $('#account-confirm-pass').val();
 
-		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/i;
 
 		if (newPassword != "" && confirmPassword != "" && email != "") {
 			if (confirmPassword = !newPassword) {
