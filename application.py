@@ -13,6 +13,15 @@ def home_page():
 def posts(area, issue):
     return render_template('posts.html', post_left=rest.retrieve_posts_left(area,issue), post_right=rest.retrieve_posts_right(area,issue))
 
+@application.route('/areas')
+def areas_page():
+    return render_template('areas.html', areas=rest.retrieve_areas())
+
+@application.route('/<string:area>')
+def issues_page(area):
+    return render_template('issues.html', issues=rest.retrieve_issues(area))
+
+
 @application.route('/about/page')
 def about_page():
     return render_template('about.html')
@@ -21,12 +30,6 @@ def about_page():
 @application.route('/contact/page')
 def contact_page():
     return render_template('contact.html')
-
-
-@application.route('/issues/page')
-def issues_page():
-    return render_template('issues.html', postdict_left=rest.retrieve_thread_left(), postdict_right=rest.retrieve_thread_right())
-
 
 @application.route('/local/page')
 def local_page():

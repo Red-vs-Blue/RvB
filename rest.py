@@ -115,6 +115,30 @@ def retrieve_thread(post_id):
         return postdict
         # return jsonify({'message': 'Thread successfully retrieved'})
 
+@application.route('/retrieve_areas', methods=['GET'])
+def retrieve_areas(default_All=1):
+    thread = dao.retrieve_areas(default_All)
+
+    if thread != None:
+        data = []
+        for item in thread:
+            name = item[0]
+            description = item[1]
+            data.append({'name': name, 'description': description})
+        return data
+
+@application.route('/retrieve_issues', methods=['GET'])
+def retrieve_issues(default_All='all'):
+    thread = dao.retrieve_issues(default_All)
+
+    if thread != None:
+        data = []
+        for item in thread:
+            id = item[0]
+            title = item[1]
+            area = item[2]
+            data.append({'id': id, 'title': title, 'area': area})
+        return data
 
 @application.route('/retrieve_thread_left', methods=['GET'])
 def retrieve_thread_left(affiliation=2):

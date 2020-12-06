@@ -1,5 +1,5 @@
 {% extends '/base.html' %}
-{% from 'macros.html' import postIssues %}
+{% from 'macros.html' import postAreas %}
 
 {% block css %}
 <link rel="stylesheet" href="/../static/css/post.css">
@@ -12,11 +12,12 @@
 {% endblock %}
 
 {% block head %}
-	<title>{{issues[0].area}}</title>
+	<title>Areas</title>
 {% endblock %}
 
 {% block body %}
-<h1 style="text-align: center;">Issues for {{issues[0].area}}</h1> 
-    {{postIssues(issues)}}
+<h1 style="text-align: center;">Areas</h1>
+
+    {{postAreas(areas)}}
 
 {% endblock %}

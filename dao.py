@@ -90,7 +90,79 @@ def contact(name, email, message):
         if cursor and conn:
             cursor.close()
             conn.close()
+  
+def retrieve_issues(location):
+    conn = None
+    cursor = None
+    try:
+        if location is 'all': 
+            conn = mysql.connect()
+            cursor = conn.cursor()
 
+            sql =   ("SELECT * FROM pages;")
+
+            cursor.execute(sql)
+            table = cursor.fetchmany(15)
+            print(table)
+            return table
+        else:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+
+            sql =   ("SELECT * FROM pages WHERE area=%s;")
+
+            sql_where = (location)
+
+            cursor.execute(sql, sql_where)
+            table = cursor.fetchmany(15)
+            print(table)
+            return table
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+
+def retrieve_areas(location):
+    conn = None
+    cursor = None
+    try:
+        if location is 1: 
+            conn = mysql.connect()
+            cursor = conn.cursor()
+
+            sql =   ("SELECT * FROM area;")
+
+            #sql_where = (area, issue)
+
+            cursor.execute(sql)
+            table = cursor.fetchmany(10)
+            print(table)
+            return table
+        else:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+
+            sql =   ("SELECT * FROM area;")
+
+            #sql_where = (area, issue)
+
+            cursor.execute(sql)
+            table = cursor.fetchmany(15)
+            print(table)
+            return table
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
 
 def retrieve_thread(post_id):
     conn = None
