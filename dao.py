@@ -95,7 +95,7 @@ def retrieve_issues(location):
     conn = None
     cursor = None
     try:
-        if location is 'all': 
+        if location == 'all': 
             conn = mysql.connect()
             cursor = conn.cursor()
 
@@ -131,7 +131,7 @@ def retrieve_areas(location):
     conn = None
     cursor = None
     try:
-        if location is 1: 
+        if location == 1: 
             conn = mysql.connect()
             cursor = conn.cursor()
 
