@@ -1,0 +1,44 @@
+{% extends '/base.html' %}
+{% from 'macros.html' import post_row %}
+{% block css %}
+<link rel="stylesheet" href="../static/css/post.css">
+<link rel="stylesheet" href="../static/css/upvotejs.css">
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{{ url_for('static', filename='../static/js/issues.js') }}" />
+{% endblock %}
+
+{% block head %}
+	<title>Front Page</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	
+  <div class="col-lg-6"> <form id="leftform" method="post">   <label for="left_party"></label><select class="form-control" id="left_party" required>
+    <option value="">Open this select menu</option>
+    <option>Democrat</option>
+    <option>Republican</option>
+	  <option>Green</option>
+	  <option>Constitution</option>
+	  <option>Libertarian</option>
+    <option>Unaffiliated</option>
+	</select> </form></div>
+
+	
+  <div class="col-lg-6">  <form id="rightform" method="post"> <label for="right_party"></label>  <select class="form-control" id="right_party" required>
+    <option value="">Open this select menu</option>
+    <option>Democrat</option>
+    <option>Republican</option>
+	  <option>Green</option>
+	  <option>Constitution</option>
+	  <option>Libertarian</option>
+	</select> </form></div>
+
+</div>  
+<div class="col" style="text-align: center;" > <a href="#">Refresh Page</a></div>
+	{{post_row(postdict_left, postdict_right)}}
+      
+{% endblock %}

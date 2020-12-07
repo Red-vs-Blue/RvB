@@ -158,6 +158,14 @@ $(document).ready(function () {
 		$('#logoff').hide();
 	}
 
+	$('#refreshButton').on('click', function (e) {
+		e.preventDefault();
+		var left_party = $("#left_party option:selected").val();
+		var right_party = $("#right_party option:selected").val();
+		
+		let new_page = ("{{ url_for('.front_page', left_party='Green', right_party='Democrat')}}");
+		window.location.href = new_page
+	});
 
 	$('#logout').on('click', function (e) {
 		e.preventDefault();

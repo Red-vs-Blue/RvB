@@ -218,6 +218,7 @@
         <div class="mar-btm">
             <a href="#" class="btn-link text-semibold media-heading box-inline">  Username:  {{item.comment_username}}</a>
             <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i>  Comment Date:  {{item.comment_date}}</p>
+            <a href="{{ url_for('.report_page', comment_id=item.comment_id) }}" class="btn-link text-semibold media-heading box-inline">  Report</a>
         </div>
         <p>{{item.comment_text}}</p>
         <div class="pad-ver">

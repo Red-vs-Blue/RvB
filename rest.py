@@ -363,5 +363,4 @@ def retrieve_post_comments(post_id):
             comment_date = item[3]
             data.append({'comment_id': comment_id, 'comment_username': comment_username,
                          'comment_text': comment_text, 'comment_date': comment_date})
-        print(data)
         return data

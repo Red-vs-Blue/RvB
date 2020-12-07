@@ -1,4 +1,5 @@
 import rest
+import dao
 from app import application
 from flask import render_template
 from flask import Flask
@@ -41,9 +42,9 @@ def login_page():
     return render_template('login.html')
 
 
-@application.route('/politicians/page')
-def politicians_page():
-    return render_template('politicians.html', postdict_left=rest.retrieve_thread_left(), postdict_right=rest.retrieve_thread_right())
+@application.route('/front/page')
+def front_page(left_party="Democrat", right_party="Republican"):
+    return render_template('front.html', postdict_left=rest.retrieve_thread_left(dao.party_to_partyID(left_party)), postdict_right=rest.retrieve_thread_right(dao.party_to_partyID(right_party)))
 
 
 @application.route('/signup/page')
@@ -70,6 +71,9 @@ def post_page(post_id):
 def make_post_page():
     return render_template('make_post.html')
 
+@application.route('/report/page/<int:comment_id>')
+def report_page(comment_id):
+    return render_template('report.html', comment_id=comment_id)
 
 if __name__ == "__main__":
     application.debug = True
