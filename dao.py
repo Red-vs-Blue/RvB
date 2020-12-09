@@ -76,8 +76,8 @@ def contact(name, email, message):
         cursor = conn.cursor()
 
         if (name and email and message):
-            sql = "INSERT  INTO emails(name, email, message) VALUES (%s, %s, %s)"
-            val = (name, email, message)
+            sql = "INSERT  INTO contactUs(email, message, name) VALUES (%s, %s, %s)"
+            val = (email, message, name)
             cursor.execute(sql, val)
             conn.commit()
             return email
@@ -103,7 +103,6 @@ def retrieve_issues(location):
 
             cursor.execute(sql)
             table = cursor.fetchmany(15)
-            print(table)
             return table
         else:
             conn = mysql.connect()
@@ -115,7 +114,6 @@ def retrieve_issues(location):
 
             cursor.execute(sql, sql_where)
             table = cursor.fetchmany(15)
-            print(table)
             return table
 
     except Exception as e:
@@ -141,7 +139,6 @@ def retrieve_areas(location):
 
             cursor.execute(sql)
             table = cursor.fetchmany(10)
-            print(table)
             return table
         else:
             conn = mysql.connect()
@@ -153,7 +150,6 @@ def retrieve_areas(location):
 
             cursor.execute(sql)
             table = cursor.fetchmany(15)
-            print(table)
             return table
 
     except Exception as e:
@@ -703,6 +699,35 @@ def retrieve_post_comments(post_id):
         cursor.execute(sql, sql_where)
         rows = cursor.fetchall()
         return rows
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
+def report(comment_id, message):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        sql = "SELECT username FROM postComments WHERE id=%s"
+        sql_where = (comment_id)
+
+        cursor.execute(sql, sql_where)
+        row = cursor.fetchone()
+        username = row[0]
+        sql = "INSERT  INTO reports(user, text, reportedComment, date) VALUES (%s, %s, %s, %s)"
+        val = (username, message, comment_id, datetime.datetime.now())
+        cursor.execute(sql, val)
+        conn.commit()
+        return True
+        
 
     except Exception as e:
         print(e)

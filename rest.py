@@ -24,7 +24,9 @@ def login():
             session['email'] = user[3]
             session['party'] = dao.partyID_to_party(user[4])
             session['date'] = user[6]
-            return jsonify({'message': 'User logged in successfully'})
+            resp = jsonify({'message': 'User logged in successfully'})
+            resp.status_code = 200
+            return resp
 
     resp = jsonify({'message': 'Bad Request - invalid credentials'})
     resp.status_code = 400
@@ -364,3 +366,24 @@ def retrieve_post_comments(post_id):
             data.append({'comment_id': comment_id, 'comment_username': comment_username,
                          'comment_text': comment_text, 'comment_date': comment_date})
         return data
+
+@application.route('/report', methods=['POST'])
+def report():
+    _json = request.json
+    _name = _json['name']
+    _email = _json['email']
+    _reason = _json['reason']
+    _comment_id = _json['comment_id']
+    _message = _json['message']
+    report = dao.report(_comment_id, _message)
+    if report == True:
+        msg = Message(_reason, sender=_email, recipients=[
+                      'contactelephantdonkey@gmail.com'])
+        msg.body = "Name: " + _name + "\n" + "From: " + \
+            _email + "\n" + "Message: " + _message + "\n" + "Comment Reference ID: " + _comment_id
+        mail.send(msg)
+        return jsonify({'message': 'Report was successfull'})
+
+    resp = jsonify({'message': 'Bad Request - invalid credendtials'})
+    resp.status_code = 400
+    return resp
