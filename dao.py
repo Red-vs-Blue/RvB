@@ -385,7 +385,7 @@ def change_password(password, username, party):
         cursor = conn.cursor()
         party = party_to_partyID(party)
         sql = "UPDATE accounts SET password=%s, party=%s WHERE username=%s"
-        sql_where = (password, party, username)
+        sql_where = (generate_password_hash(password, "sha256"), party, username)
         cursor.execute(sql, sql_where)
         conn.commit()
         return True
