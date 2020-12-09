@@ -1,0 +1,33 @@
+{% extends '/base.html' %}
+{% from 'macros.html' import postAreas %}
+
+{% block css %}
+<link rel="stylesheet" href="/../static/css/post.css">
+<link rel="stylesheet" href="/../static/css/comments.css">
+<link rel="stylesheet" href="/../static/css/upvotejs.css">
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{{ url_for('static', filename='../static/js/addarea.js') }}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='../static/js/post.js') }}" />
+{% endblock %}
+
+{% block head %}
+	<title>Create Area</title>
+{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center;">Add a New Area</h1>
+    <div id="msg" style="text-align: center;"></div>
+    <div style="text-align: center;">
+        <form id="stylized-form" class="form-inline needs-validation" style="margin: auto; text-align: center;" novalidate>
+            <label class="sr-only" for="inline-email">Area</label>
+            <input id="areaID" type="text" class="form-control mb-2 mr-sm-2" id="inline-email" placeholder="Enter new area" required>
+            <input id="descriptionID" type="text" class="form-control mb-2 mr-sm-2" id="inline-email" placeholder="Enter area description" required>
+            <div class="invalid-feedback">Area can't be blank</div>
+            <div class="valid-feedback">Looks good!</div>
+            <button id="areaSubmit" type="submit" class="btn btn-primary mb-2 mr-sm-2">Create Area!</button>
+        </form>
+    </div>
+{% endblock %}

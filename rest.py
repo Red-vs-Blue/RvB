@@ -10,7 +10,7 @@ import json
 @application.route('/login', methods=['POST'])
 def login():
     _json = request.json
-
+    
     _email = _json['email']
     _password = _json['password']
 
@@ -30,6 +30,21 @@ def login():
     resp.status_code = 400
     return resp
 
+@application.route('/addarea', methods=['POST'])
+def add_area():
+    _json = request.json
+    _area = _json['area']
+    _desc = _json['description']
+    print(_json)
+    if _area:
+        result = dao.addarea(_area, _desc)
+
+        if result == 1:
+            return jsonify({'message': 'Area created successfully'})
+
+    resp = jsonify({'message': 'Area already exists!'})
+    resp.status_code = 400
+    return resp
 
 @application.route('/logout')
 def logout():
