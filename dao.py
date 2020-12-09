@@ -34,6 +34,30 @@ def login(email, pwd):
             conn.close()
 
 
+def addarea(area, description):
+    conn = None
+    cursor = None
+
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        if (area and description):
+            sql = "INSERT  INTO area(name, description) VALUES (%s, %s)"
+            val = (area, description)
+            cursor.execute(sql, val)
+            conn.commit()
+            return 1
+        return 0
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if cursor and conn:
+            cursor.close()
+            conn.close()
+
 def signup(username, firstname, lastname, email, party, pwd):
     conn = None
     cursor = None

@@ -4,11 +4,9 @@ from app import application
 from flask import render_template
 from flask import Flask
 
-
 @application.route('/')
 def home_page():
     return render_template('index.html')
-
 
 @application.route('/<string:area>/<string:issue>')
 def posts(area, issue):
@@ -22,11 +20,13 @@ def areas_page():
 def issues_page(area):
     return render_template('issues.html', issues=rest.retrieve_issues(area))
 
+@application.route('/addarea')
+def make_area():
+    return render_template('make_area.html')
 
 @application.route('/about/page')
 def about_page():
     return render_template('about.html')
-
 
 @application.route('/contact/page')
 def contact_page():
@@ -37,7 +37,7 @@ def local_page():
     return render_template('local.html')
 
 
-@application.route('/login/page')
+@application.route('/login/page')   
 def login_page():
     return render_template('login.html')
 
