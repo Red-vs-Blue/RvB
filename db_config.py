@@ -7,10 +7,10 @@ mysql = MySQL()
 # Your MySQL Database username
 application.config['MYSQL_DATABASE_USER'] = 'admin'
 # Be sure to add your MySQL server's password here
-application.config['MYSQL_DATABASE_PASSWORD'] = 'Bernie2020'
+application.config['MYSQL_DATABASE_PASSWORD'] = 'akld3fnni5pen7iwwi'
 # The name of your database
-application.config['MYSQL_DATABASE_DB'] = 'RvB'
+application.config['MYSQL_DATABASE_DB'] = 'RvBdatabase' #change name in code too
 # Where your server is running
-application.config['MYSQL_DATABASE_HOST'] = 'rvbdb.csw5x1n7bdpk.us-east-1.rds.amazonaws.com'
+application.config['MYSQL_DATABASE_HOST'] = 'rvbdatabase.c7we0ng6fgli.us-east-2.rds.amazonaws.com'
 
 mysql.init_app(application)
