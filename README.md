@@ -1,5 +1,7 @@
 # Welcome to Red vs Blue!
 
+Click here to visit the site: http://elephantdonkey-env.eba-rbzqkb4y.us-east-1.elasticbeanstalk.com
+
 This README will guide you through our Web development.
 # Before you start:
 
